@@ -29,7 +29,7 @@ sigma = zeros(1, size(X, 2));
 sigma = std(X)
 mu = mean(X)
 
-for i=1:length(X)
+for i=1:length(X(:,1))
   X_norm(i, :) = (X(i, :) - mu) ./ sigma;
 end
 
