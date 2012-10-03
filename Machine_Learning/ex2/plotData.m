@@ -12,6 +12,19 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
+admitted = [];
+rejected = [];
+
+for i=1:length(X)
+  if y(i) == 1
+    admitted = [admitted; X(i,:)];
+  else
+    rejected = [rejected; X(i,:)];
+  end
+end
+
+plot(rejected(:,1), rejected(:,2), 'ko', 'MarkerSize', 7);
+plot(admitted(:,1), admitted(:,2), 'k+', 'MarkerSize', 7, 'MarkerFaceColor', 'y', 'LineWidth', 2);
 
 
 
