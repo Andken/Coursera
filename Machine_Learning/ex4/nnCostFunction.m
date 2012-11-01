@@ -45,8 +45,7 @@ A3 = sigmoid(A2*Theta2');
 YRows = eye(num_labels);
 Y = YRows(y,:);
 
-J = (1/m)*sum(sum((-Y .* log(A3) - \
-	     (1-Y).*log(1-A3))));
+J = (1/m)*sum(sum((-Y .* log(A3) - (1-Y).*log(1-A3)))) + lambda/(2*m) * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)));
 
 
 %
