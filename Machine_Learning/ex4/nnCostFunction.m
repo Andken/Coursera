@@ -40,14 +40,13 @@ Theta2_grad = zeros(size(Theta2));
 %         computed in ex4.m
 
 X = [ones(m, 1) X];
-a2 = sigmoid(X*Theta1');
-a2 = [ones(m,1) a2];
-a3 = sigmoid(a2*Theta2');
+A2 = [ones(m,1) sigmoid(X*Theta1')];
+A3 = sigmoid(A2*Theta2');
 YRows = eye(num_labels);
 Y = YRows(y,:);
 
-J = (1/m)*sum(sum((-Y .* log(a3) - \
-	     (1-Y).*log(1-a3))));
+J = (1/m)*sum(sum((-Y .* log(A3) - \
+	     (1-Y).*log(1-A3))));
 
 
 %
@@ -67,8 +66,18 @@ J = (1/m)*sum(sum((-Y .* log(a3) - \
 %               first time.
 
 
-
-
+%% NOT NOW  
+%% NOT NOW  DELTA2 = zeros(size(A2));
+%% NOT NOW  DELTA1 = zeros(size(X));
+%% NOT NOW  for i=1:m
+%% NOT NOW    a1 = X(i,:)';
+%% NOT NOW    a2 = A2(i,:)';
+%% NOT NOW    a3 = A3(i,:)';
+%% NOT NOW  
+%% NOT NOW    delta3 = a3 - Y(i,:)';
+%% NOT NOW    delta2 = (Theta2'*delta3).*(a2.*(1-a2));
+%% NOT NOW  end
+%% NOT NOW  
 
 
 %
