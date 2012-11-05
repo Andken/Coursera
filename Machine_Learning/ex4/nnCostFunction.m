@@ -45,7 +45,9 @@ A3 = sigmoid(A2*Theta2');
 YRows = eye(num_labels);
 Y = YRows(y,:);
 
-J = (1/m)*sum(sum((-Y .* log(A3) - (1-Y).*log(1-A3)))) + lambda/(2*m) * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)));
+J = (1/m)*sum(sum((-Y .* log(A3) - (1-Y).*log(1-A3)))) \ 
+    + lambda/(2*m) * \
+    (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)));
 
 
 %
@@ -64,20 +66,25 @@ J = (1/m)*sum(sum((-Y .* log(A3) - (1-Y).*log(1-A3)))) + lambda/(2*m) * (sum(sum
 %               over the training examples if you are implementing it for the 
 %               first time.
 
+Delta1 = 0;
+Delta2 = 0;
+for t=1:m
+  a1 = X(t,:)';
+  a2 = A2(t,:)';
+  a3 = A3(t,:)';
 
-%% NOT NOW  
-%% NOT NOW  DELTA2 = zeros(size(A2));
-%% NOT NOW  DELTA1 = zeros(size(X));
-%% NOT NOW  for i=1:m
-%% NOT NOW    a1 = X(i,:)';
-%% NOT NOW    a2 = A2(i,:)';
-%% NOT NOW    a3 = A3(i,:)';
-%% NOT NOW  
-%% NOT NOW    delta3 = a3 - Y(i,:)';
-%% NOT NOW    delta2 = (Theta2'*delta3).*(a2.*(1-a2));
-%% NOT NOW  end
-%% NOT NOW  
+  z2 = Theta1*a1;
+  
+  delta3 = a3 - Y(t,:)';
+  delta2 = (Theta2'*delta3).*(sigmoidGradient([1; z2]));
 
+  delta2 = delta2(2:end);
+  Delta1 = Delta1 + delta2*a1';
+  Delta2 = Delta2 + delta3*a2';
+end
+
+Theta1_grad = Delta1/m;
+Theta2_grad = Delta2/m;
 
 %
 % Part 3: Implement regularization with the cost function and gradients.
