@@ -83,8 +83,8 @@ for t=1:m
   Delta2 = Delta2 + delta3*a2';
 end
 
-Theta1_grad = Delta1/m;
-Theta2_grad = Delta2/m;
+Theta1_grad = Delta1/m + [zeros(size(Theta1,1), 1) (lambda/m)*Theta1(:,2:end)];
+Theta2_grad = Delta2/m + [zeros(size(Theta2,1), 1) (lambda/m)*Theta2(:,2:end)];
 
 %
 % Part 3: Implement regularization with the cost function and gradients.
